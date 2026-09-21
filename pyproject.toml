@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wildlife-detection"
+version = "0.1.0"
+description = "Qwen2.5-VL object detection evaluation on COCO-style wildlife data"
+requires-python = ">=3.10"
+dependencies = [
+  "torch>=2.1",
+  "transformers>=4.49.0,<=4.51.3",
+  "accelerate>=0.30",
+  "autoawq>=0.2.7",
+  "Pillow>=10.0",
+  "pycocotools>=2.0.7",
+  "tqdm>=4.66",
+]
+
+[project.scripts]
+wildlife-detect = "wildlife_detection.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
