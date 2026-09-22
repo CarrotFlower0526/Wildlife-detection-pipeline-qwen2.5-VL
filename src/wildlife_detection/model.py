@@ -25,6 +25,15 @@ class QwenDetector:
         except ImportError as exc:
             raise RuntimeError("model dependencies are missing; run: pip install -e .") from exc
 
+        try:
+            # AutoAWQ's Triton GEMM kernel produces wrong dtypes on very new GPU
+            # architectures (e.g. Blackwell/sm_120); force the pure-PyTorch fallback.
+            from awq.modules.linear import gemm as _awq_gemm
+
+            _awq_gemm.TRITON_AVAILABLE = False
+        except ImportError:
+            pass
+
         processor_kwargs = {}
         if min_pixels is not None:
             processor_kwargs["min_pixels"] = min_pixels
@@ -36,7 +45,7 @@ class QwenDetector:
         self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
             model_path,
             device_map="auto",
-            torch_dtype="auto",
+            torch_dtype=torch.float16,
             local_files_only=True,
         ).eval()
         self.torch = torch

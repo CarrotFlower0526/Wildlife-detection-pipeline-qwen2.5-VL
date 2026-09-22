@@ -5,7 +5,7 @@ checkpoints/*
 !checkpoints/.gitkeep
 
 # Evaluation artifacts
-outputs/
+# outputs/
 results/
 logs/
 
