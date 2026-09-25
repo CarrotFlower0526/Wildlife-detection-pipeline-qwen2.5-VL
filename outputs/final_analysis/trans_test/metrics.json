@@ -1,0 +1,113 @@
+{
+  "name": "trans_test",
+  "split": "trans_test",
+  "expected_images": 23275,
+  "records": 23275,
+  "unique_images": 23275,
+  "missing_images": 0,
+  "extra_images": 0,
+  "duplicate_records": 0,
+  "predictions_file": "/home/users/yf201/Code/Wildlife-detection-pipeline-qwen2.5-VL/outputs/trans_test/predictions.jsonl",
+  "status": "analyzed",
+  "fixes": [
+    "Legacy boxes were explicitly interpreted as supplied-image pixels and scaled to annotation dimensions; annotation IDs were normalized to integers. Keep the original outputs and verify overlays before citing these assumption-dependent scores.",
+    "Inspect the listed response errors. Retry only failed images in a separate run using the corrected prompt, then merge by image ID with coordinate metadata and rescore. Ordinary resume skips failures. For malformed JSON, test schema-constrained generation on validation data; increase the token limit only for genuinely truncated responses.",
+    "Inspect skipped-box warnings and raw responses. Enforce a four-number xyxy schema and valid category names; add regression cases for observed formats rather than silently fabricating missing coordinates.",
+    "Positive images without boxes are retained for compatibility with existing scoring. Confirm the dataset's official box-evaluation protocol: do not assume such images are negatives. Keep genuine empty images when reporting a box-annotated subset.",
+    "Review missed positive images across lighting, size, and occlusion. Benchmark a dedicated detector for candidate boxes, optionally using the VLM to classify crops. Tune prompts and thresholds on validation splits, not these test results.",
+    "Audit possible class confusion/overprediction for rodent, badger, fox. Box-count ratios alone do not prove hallucination. Validate crop classifications and consider training a classifier on the training labels."
+  ],
+  "predictions_sha256": "bc74ab023bd964f79811fed913f14b98a746b8466550711a299db36aedfb8586",
+  "detections": 11626,
+  "failed_images": 219,
+  "error_counts": {
+    "model response does not contain a JSON array or object": 219
+  },
+  "warning_counts": {
+    "item 0: invalid bbox": 130,
+    "item 1: invalid bbox": 1
+  },
+  "legacy_records": 23275,
+  "legacy_coordinate_space": "image",
+  "coco_coordinate_space": "annotation",
+  "metrics": {
+    "AP@[.50:.95]": 0.06316758963123538,
+    "AP@.50": 0.1326108674367284,
+    "AP@.75": 0.05370836044409776,
+    "AP_small": -1.0,
+    "AP_medium": 0.002828023591832867,
+    "AP_large": 0.0648932231115337,
+    "AR_1": 0.11860503931913127,
+    "AR_10": 0.12300688793620942,
+    "AR_100": 0.12300688793620942,
+    "AR_small": -1.0,
+    "AR_medium": 0.006944444444444445,
+    "AR_large": 0.12499715075950825
+  },
+  "boxed_positive_images": 18033,
+  "missed_boxed_positive_images": 9806,
+  "label_only_positive_images": 3464,
+  "class_counts": {
+    "bobcat": {
+      "ground_truth_boxes": 1979,
+      "predicted_boxes": 1430
+    },
+    "opossum": {
+      "ground_truth_boxes": 4663,
+      "predicted_boxes": 2251
+    },
+    "coyote": {
+      "ground_truth_boxes": 1902,
+      "predicted_boxes": 715
+    },
+    "raccoon": {
+      "ground_truth_boxes": 4803,
+      "predicted_boxes": 1386
+    },
+    "bird": {
+      "ground_truth_boxes": 180,
+      "predicted_boxes": 268
+    },
+    "dog": {
+      "ground_truth_boxes": 961,
+      "predicted_boxes": 524
+    },
+    "cat": {
+      "ground_truth_boxes": 1366,
+      "predicted_boxes": 406
+    },
+    "squirrel": {
+      "ground_truth_boxes": 782,
+      "predicted_boxes": 1212
+    },
+    "rabbit": {
+      "ground_truth_boxes": 722,
+      "predicted_boxes": 252
+    },
+    "skunk": {
+      "ground_truth_boxes": 273,
+      "predicted_boxes": 151
+    },
+    "rodent": {
+      "ground_truth_boxes": 26,
+      "predicted_boxes": 884
+    },
+    "badger": {
+      "ground_truth_boxes": 15,
+      "predicted_boxes": 1733
+    },
+    "deer": {
+      "ground_truth_boxes": 0,
+      "predicted_boxes": 8
+    },
+    "car": {
+      "ground_truth_boxes": 1113,
+      "predicted_boxes": 85
+    },
+    "fox": {
+      "ground_truth_boxes": 1,
+      "predicted_boxes": 321
+    }
+  },
+  "generation_seconds": 32137.634886406362
+}

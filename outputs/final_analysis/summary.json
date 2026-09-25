@@ -1,0 +1,339 @@
+[
+  {
+    "name": "cis_test",
+    "split": "cis_test",
+    "expected_images": 15827,
+    "records": 15827,
+    "unique_images": 15827,
+    "missing_images": 0,
+    "extra_images": 0,
+    "duplicate_records": 0,
+    "predictions_file": "/home/users/yf201/Code/Wildlife-detection-pipeline-qwen2.5-VL/outputs/cis_test/predictions.jsonl",
+    "status": "analyzed",
+    "fixes": [
+      "Legacy boxes were explicitly interpreted as supplied-image pixels and scaled to annotation dimensions; annotation IDs were normalized to integers. Keep the original outputs and verify overlays before citing these assumption-dependent scores.",
+      "Inspect the listed response errors. Retry only failed images in a separate run using the corrected prompt, then merge by image ID with coordinate metadata and rescore. Ordinary resume skips failures. For malformed JSON, test schema-constrained generation on validation data; increase the token limit only for genuinely truncated responses.",
+      "Inspect skipped-box warnings and raw responses. Enforce a four-number xyxy schema and valid category names; add regression cases for observed formats rather than silently fabricating missing coordinates.",
+      "Positive images without boxes are retained for compatibility with existing scoring. Confirm the dataset's official box-evaluation protocol: do not assume such images are negatives. Keep genuine empty images when reporting a box-annotated subset.",
+      "Review missed positive images across lighting, size, and occlusion. Benchmark a dedicated detector for candidate boxes, optionally using the VLM to classify crops. Tune prompts and thresholds on validation splits, not these test results.",
+      "Audit possible class confusion/overprediction for rodent, badger, fox. Box-count ratios alone do not prove hallucination. Validate crop classifications and consider training a classifier on the training labels."
+    ],
+    "predictions_sha256": "c18bf6fcf019b001abcd587bd97b831f6d7d3af345fc2068abaa2ad1e2e17b30",
+    "detections": 9426,
+    "failed_images": 132,
+    "error_counts": {
+      "model response does not contain a JSON array or object": 132
+    },
+    "warning_counts": {
+      "item 0: invalid bbox": 93,
+      "item 1: invalid bbox": 3
+    },
+    "legacy_records": 15827,
+    "legacy_coordinate_space": "image",
+    "coco_coordinate_space": "annotation",
+    "metrics": {
+      "AP@[.50:.95]": 0.0994562656237275,
+      "AP@.50": 0.19220089482614072,
+      "AP@.75": 0.09446906220063887,
+      "AP_small": -1.0,
+      "AP_medium": 0.000405762402384884,
+      "AP_large": 0.10203343793077849,
+      "AR_1": 0.18411855435529587,
+      "AR_10": 0.18849745642814472,
+      "AR_100": 0.18849745642814472,
+      "AR_small": -1.0,
+      "AR_medium": 0.0034793814432989693,
+      "AR_large": 0.18994176555717165
+    },
+    "boxed_positive_images": 12696,
+    "missed_boxed_positive_images": 5619,
+    "label_only_positive_images": 1951,
+    "class_counts": {
+      "bobcat": {
+        "ground_truth_boxes": 772,
+        "predicted_boxes": 1147
+      },
+      "opossum": {
+        "ground_truth_boxes": 4010,
+        "predicted_boxes": 2059
+      },
+      "coyote": {
+        "ground_truth_boxes": 1182,
+        "predicted_boxes": 684
+      },
+      "raccoon": {
+        "ground_truth_boxes": 981,
+        "predicted_boxes": 459
+      },
+      "bird": {
+        "ground_truth_boxes": 752,
+        "predicted_boxes": 397
+      },
+      "dog": {
+        "ground_truth_boxes": 725,
+        "predicted_boxes": 379
+      },
+      "cat": {
+        "ground_truth_boxes": 1528,
+        "predicted_boxes": 360
+      },
+      "squirrel": {
+        "ground_truth_boxes": 510,
+        "predicted_boxes": 1244
+      },
+      "rabbit": {
+        "ground_truth_boxes": 1559,
+        "predicted_boxes": 521
+      },
+      "skunk": {
+        "ground_truth_boxes": 162,
+        "predicted_boxes": 121
+      },
+      "rodent": {
+        "ground_truth_boxes": 146,
+        "predicted_boxes": 843
+      },
+      "badger": {
+        "ground_truth_boxes": 4,
+        "predicted_boxes": 816
+      },
+      "deer": {
+        "ground_truth_boxes": 140,
+        "predicted_boxes": 68
+      },
+      "car": {
+        "ground_truth_boxes": 791,
+        "predicted_boxes": 114
+      },
+      "fox": {
+        "ground_truth_boxes": 2,
+        "predicted_boxes": 214
+      }
+    },
+    "generation_seconds": 25102.988905772334
+  },
+  {
+    "name": "trans_test",
+    "split": "trans_test",
+    "expected_images": 23275,
+    "records": 23275,
+    "unique_images": 23275,
+    "missing_images": 0,
+    "extra_images": 0,
+    "duplicate_records": 0,
+    "predictions_file": "/home/users/yf201/Code/Wildlife-detection-pipeline-qwen2.5-VL/outputs/trans_test/predictions.jsonl",
+    "status": "analyzed",
+    "fixes": [
+      "Legacy boxes were explicitly interpreted as supplied-image pixels and scaled to annotation dimensions; annotation IDs were normalized to integers. Keep the original outputs and verify overlays before citing these assumption-dependent scores.",
+      "Inspect the listed response errors. Retry only failed images in a separate run using the corrected prompt, then merge by image ID with coordinate metadata and rescore. Ordinary resume skips failures. For malformed JSON, test schema-constrained generation on validation data; increase the token limit only for genuinely truncated responses.",
+      "Inspect skipped-box warnings and raw responses. Enforce a four-number xyxy schema and valid category names; add regression cases for observed formats rather than silently fabricating missing coordinates.",
+      "Positive images without boxes are retained for compatibility with existing scoring. Confirm the dataset's official box-evaluation protocol: do not assume such images are negatives. Keep genuine empty images when reporting a box-annotated subset.",
+      "Review missed positive images across lighting, size, and occlusion. Benchmark a dedicated detector for candidate boxes, optionally using the VLM to classify crops. Tune prompts and thresholds on validation splits, not these test results.",
+      "Audit possible class confusion/overprediction for rodent, badger, fox. Box-count ratios alone do not prove hallucination. Validate crop classifications and consider training a classifier on the training labels."
+    ],
+    "predictions_sha256": "bc74ab023bd964f79811fed913f14b98a746b8466550711a299db36aedfb8586",
+    "detections": 11626,
+    "failed_images": 219,
+    "error_counts": {
+      "model response does not contain a JSON array or object": 219
+    },
+    "warning_counts": {
+      "item 0: invalid bbox": 130,
+      "item 1: invalid bbox": 1
+    },
+    "legacy_records": 23275,
+    "legacy_coordinate_space": "image",
+    "coco_coordinate_space": "annotation",
+    "metrics": {
+      "AP@[.50:.95]": 0.06316758963123538,
+      "AP@.50": 0.1326108674367284,
+      "AP@.75": 0.05370836044409776,
+      "AP_small": -1.0,
+      "AP_medium": 0.002828023591832867,
+      "AP_large": 0.0648932231115337,
+      "AR_1": 0.11860503931913127,
+      "AR_10": 0.12300688793620942,
+      "AR_100": 0.12300688793620942,
+      "AR_small": -1.0,
+      "AR_medium": 0.006944444444444445,
+      "AR_large": 0.12499715075950825
+    },
+    "boxed_positive_images": 18033,
+    "missed_boxed_positive_images": 9806,
+    "label_only_positive_images": 3464,
+    "class_counts": {
+      "bobcat": {
+        "ground_truth_boxes": 1979,
+        "predicted_boxes": 1430
+      },
+      "opossum": {
+        "ground_truth_boxes": 4663,
+        "predicted_boxes": 2251
+      },
+      "coyote": {
+        "ground_truth_boxes": 1902,
+        "predicted_boxes": 715
+      },
+      "raccoon": {
+        "ground_truth_boxes": 4803,
+        "predicted_boxes": 1386
+      },
+      "bird": {
+        "ground_truth_boxes": 180,
+        "predicted_boxes": 268
+      },
+      "dog": {
+        "ground_truth_boxes": 961,
+        "predicted_boxes": 524
+      },
+      "cat": {
+        "ground_truth_boxes": 1366,
+        "predicted_boxes": 406
+      },
+      "squirrel": {
+        "ground_truth_boxes": 782,
+        "predicted_boxes": 1212
+      },
+      "rabbit": {
+        "ground_truth_boxes": 722,
+        "predicted_boxes": 252
+      },
+      "skunk": {
+        "ground_truth_boxes": 273,
+        "predicted_boxes": 151
+      },
+      "rodent": {
+        "ground_truth_boxes": 26,
+        "predicted_boxes": 884
+      },
+      "badger": {
+        "ground_truth_boxes": 15,
+        "predicted_boxes": 1733
+      },
+      "deer": {
+        "ground_truth_boxes": 0,
+        "predicted_boxes": 8
+      },
+      "car": {
+        "ground_truth_boxes": 1113,
+        "predicted_boxes": 85
+      },
+      "fox": {
+        "ground_truth_boxes": 1,
+        "predicted_boxes": 321
+      }
+    },
+    "generation_seconds": 32137.634886406362
+  },
+  {
+    "name": "train_5000",
+    "split": "train",
+    "expected_images": 5000,
+    "records": 5000,
+    "unique_images": 5000,
+    "missing_images": 0,
+    "extra_images": 0,
+    "duplicate_records": 0,
+    "predictions_file": "/home/users/yf201/Code/Wildlife-detection-pipeline-qwen2.5-VL/outputs/train_5000/predictions.jsonl",
+    "status": "analyzed",
+    "fixes": [
+      "Inspect the listed response errors. Retry only failed images in a separate run using the corrected prompt, then merge by image ID with coordinate metadata and rescore. Ordinary resume skips failures. For malformed JSON, test schema-constrained generation on validation data; increase the token limit only for genuinely truncated responses.",
+      "Inspect skipped-box warnings and raw responses. Enforce a four-number xyxy schema and valid category names; add regression cases for observed formats rather than silently fabricating missing coordinates.",
+      "Positive images without boxes are retained for compatibility with existing scoring. Confirm the dataset's official box-evaluation protocol: do not assume such images are negatives. Keep genuine empty images when reporting a box-annotated subset.",
+      "Review missed positive images across lighting, size, and occlusion. Benchmark a dedicated detector for candidate boxes, optionally using the VLM to classify crops. Tune prompts and thresholds on validation splits, not these test results.",
+      "Audit possible class confusion/overprediction for rodent, badger, car, fox. Box-count ratios alone do not prove hallucination. Validate crop classifications and consider training a classifier on the training labels."
+    ],
+    "predictions_sha256": "64b4e35d7b93f7eab221eba74e209321b285b3d9f63d020f2ae3db3aa2106d61",
+    "detections": 3462,
+    "failed_images": 36,
+    "error_counts": {
+      "model response does not contain a JSON array or object": 36
+    },
+    "warning_counts": {
+      "item 0: invalid bbox": 26
+    },
+    "legacy_records": 0,
+    "legacy_coordinate_space": null,
+    "coco_coordinate_space": "annotation",
+    "metrics": {
+      "AP@[.50:.95]": 0.11804384531507302,
+      "AP@.50": 0.23906238527698914,
+      "AP@.75": 0.09785270992442609,
+      "AP_small": -1.0,
+      "AP_medium": 0.0,
+      "AP_large": 0.12266002049421436,
+      "AR_1": 0.1905329422437067,
+      "AR_10": 0.1923196673734408,
+      "AR_100": 0.1923196673734408,
+      "AR_small": -1.0,
+      "AR_medium": 0.0,
+      "AR_large": 0.19304167507775175
+    },
+    "boxed_positive_images": 4439,
+    "missed_boxed_positive_images": 1829,
+    "label_only_positive_images": 561,
+    "class_counts": {
+      "bobcat": {
+        "ground_truth_boxes": 322,
+        "predicted_boxes": 358
+      },
+      "opossum": {
+        "ground_truth_boxes": 1259,
+        "predicted_boxes": 610
+      },
+      "coyote": {
+        "ground_truth_boxes": 231,
+        "predicted_boxes": 112
+      },
+      "raccoon": {
+        "ground_truth_boxes": 430,
+        "predicted_boxes": 225
+      },
+      "bird": {
+        "ground_truth_boxes": 160,
+        "predicted_boxes": 69
+      },
+      "dog": {
+        "ground_truth_boxes": 170,
+        "predicted_boxes": 77
+      },
+      "cat": {
+        "ground_truth_boxes": 587,
+        "predicted_boxes": 176
+      },
+      "squirrel": {
+        "ground_truth_boxes": 345,
+        "predicted_boxes": 623
+      },
+      "rabbit": {
+        "ground_truth_boxes": 828,
+        "predicted_boxes": 276
+      },
+      "skunk": {
+        "ground_truth_boxes": 64,
+        "predicted_boxes": 36
+      },
+      "rodent": {
+        "ground_truth_boxes": 151,
+        "predicted_boxes": 559
+      },
+      "badger": {
+        "ground_truth_boxes": 5,
+        "predicted_boxes": 263
+      },
+      "deer": {
+        "ground_truth_boxes": 6,
+        "predicted_boxes": 5
+      },
+      "car": {
+        "ground_truth_boxes": 0,
+        "predicted_boxes": 34
+      },
+      "fox": {
+        "ground_truth_boxes": 0,
+        "predicted_boxes": 39
+      }
+    },
+    "generation_seconds": 8325.35198917659
+  }
+]
