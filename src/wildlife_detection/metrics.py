@@ -31,6 +31,7 @@ def evaluate_coco(
         if not bbox or bbox[2] <= 0 or bbox[3] <= 0:
             continue
         item = dict(annotation)
+        item["id"] = len(annotations) + 1
         item["area"] = float(item.get("area", bbox[2] * bbox[3]))
         item["iscrowd"] = int(item.get("iscrowd", 0))
         annotations.append(item)

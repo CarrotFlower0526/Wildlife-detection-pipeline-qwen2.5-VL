@@ -5,7 +5,7 @@ import json
 import math
 import re
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Sequence
 
 
 @dataclass(frozen=True)
@@ -19,6 +19,39 @@ class Detection:
     def bbox_xywh(self) -> list[float]:
         x1, y1, x2, y2 = self.bbox_xyxy
         return [x1, y1, x2 - x1, y2 - y1]
+
+
+def detection_schema(categories: Sequence[str]) -> dict[str, Any]:
+    if not categories:
+        raise ValueError("At least one detection category is required")
+    return {
+        "type": "array",
+        "items": {
+            "type": "object",
+            "properties": {
+                "label": {"type": "string", "enum": list(categories)},
+                "bbox": {"type": "array", "items": {"type": "number"}, "minItems": 4, "maxItems": 4},
+                "score": {"type": "number"},
+            },
+            "required": ["label", "bbox", "score"],
+            "additionalProperties": False,
+        },
+    }
+
+
+def _structured_payload(text: str, categories: Sequence[str]) -> Any:
+    from jsonschema import Draft202012Validator, ValidationError
+
+    try:
+        payload = json.loads(text)
+        json.dumps(payload, allow_nan=False)
+        Draft202012Validator(detection_schema(categories)).validate(payload)
+    except (ValueError, ValidationError) as exc:
+        raise ValueError(
+            "Structured output is incomplete or violates the detection JSON schema; "
+            "inspect raw_output and increase --max-new-tokens if truncated"
+        ) from exc
+    return payload
 
 
 def _candidate_payloads(text: str) -> list[str]:
@@ -70,9 +103,11 @@ def parse_detections(
     category_map: dict[str, int],
     width: int,
     height: int,
+    *,
+    strict: bool = False,
 ) -> tuple[list[Detection], list[str]]:
     """Parse common Qwen localization outputs; malformed items are reported and skipped."""
-    payload = _decode_payload(text)
+    payload = _structured_payload(text, list(category_map)) if strict else _decode_payload(text)
     detections: list[Detection] = []
     warnings: list[str] = []
     for index, obj in enumerate(_objects(payload)):

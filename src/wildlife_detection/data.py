@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterator
 
+from PIL import Image
+
 
 @dataclass(frozen=True)
 class Sample:
@@ -15,6 +17,11 @@ class Sample:
     width: int
     height: int
     annotations: tuple[dict[str, Any], ...]
+
+    @property
+    def image_size(self) -> tuple[int, int]:
+        with Image.open(self.image_path) as image:
+            return image.size
 
 
 class CocoWildlifeDataset:
@@ -73,13 +80,23 @@ class CocoWildlifeDataset:
 
     def validate(self, limit: int | None = None, check_images: bool = True) -> dict[str, int]:
         checked = missing = invalid = 0
+        resized = unreadable = 0
         for sample in self.iter_samples(limit):
             checked += 1
             if sample.width <= 0 or sample.height <= 0:
                 invalid += 1
-            if check_images and not sample.image_path.is_file():
-                missing += 1
-        return {"images_checked": checked, "missing_images": missing, "invalid_sizes": invalid}
+            if check_images:
+                if not sample.image_path.is_file():
+                    missing += 1
+                    continue
+                try:
+                    resized += sample.image_size != (sample.width, sample.height)
+                except OSError:
+                    unreadable += 1
+        return {
+            "images_checked": checked, "missing_images": missing, "invalid_sizes": invalid,
+            "resized_images": resized, "unreadable_images": unreadable,
+        }
 
 
 def default_annotation_path(dataset_root: str | Path, split: str) -> Path:
