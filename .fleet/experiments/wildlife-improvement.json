@@ -1,0 +1,149 @@
+{
+  "schema": "codex-fleet-scientific-workorder-v3",
+  "id": "wildlife-improvement",
+  "title": "Wildlife detection: corrected evaluation, 3B/7B LoRA and detector selection",
+  "description": "Improve CCT20 detection from upstream revision 79f7e06508cd234cf7b05933f3e3de438849a694. Exclude known unboxed positives from primary box evaluation; never train them as negatives. Add 3000 empty sequences from cameras outside all CCT20 splits, clearly labeling this extended-data protocol. Compare frozen Qwen2.5-VL 3B/7B, LoRA on both, and a supervised YOLO11-L detector with standard and high-resolution augmented inference. Rank candidates on full trans_val mAP, tie-break with cis_val mAP, freeze the selection before test evaluation. Preserve raw predictions, resumable training state, selected weights and inference recipe. This is a bounded comparative campaign, not a guarantee of global optimality. Original audit evidence: outputs/final_analysis/report.md and outputs/train_200_structured/predictions.jsonl.",
+  "environment": "wildlife-training",
+  "requires_network": true,
+  "inputs": [
+    {
+      "role": "dataset",
+      "producer": {
+        "kind": "upstream-output",
+        "node": "prepare",
+        "output_role": "dataset"
+      }
+    },
+    {
+      "role": "model3b",
+      "producer": {
+        "kind": "content",
+        "name": "qwen25vl-3b",
+        "version": 1
+      }
+    },
+    {
+      "role": "model7b",
+      "producer": {
+        "kind": "content",
+        "name": "qwen25vl-7b",
+        "version": 1
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "prepare",
+      "title": "Prepare CCT20 images, corrected annotations and independent negatives",
+      "program": {
+        "argv": [
+          "python",
+          "-m",
+          "scripts.campaign.prepare",
+          "--output",
+          "@output:dataset",
+          "--extra-negatives",
+          "3000"
+        ]
+      },
+      "outputs": [
+        {
+          "role": "dataset",
+          "complete_when": [
+            {
+              "path": "dataset_report.json"
+            },
+            {
+              "path": "train_detection.json"
+            },
+            {
+              "path": "pretrained/yolo11l.pt"
+            }
+          ]
+        }
+      ],
+      "storage": {
+        "working_data_peak_bytes": 21474836480
+      }
+    },
+    {
+      "id": "compare-and-select",
+      "title": "Train candidates, select on validation, evaluate held-out tests",
+      "program": {
+        "argv": [
+          "python",
+          "-m",
+          "scripts.campaign.run",
+          "--data",
+          "@input:dataset",
+          "--model3b",
+          "@input:model3b",
+          "--model7b",
+          "@input:model7b",
+          "--checkpoint",
+          "@output:checkpoint",
+          "--result",
+          "@output:result"
+        ],
+        "model_loads": [
+          {
+            "input": "@input:model3b",
+            "dtype": "bfloat16"
+          },
+          {
+            "input": "@input:model7b",
+            "dtype": "bfloat16"
+          }
+        ]
+      },
+      "scientific_topology": {
+        "kind": "data-parallel",
+        "degree": 1,
+        "numeric_semantics": "exact"
+      },
+      "validity": {
+        "device_isolation": "exclusive"
+      },
+      "outputs": [
+        {
+          "role": "checkpoint",
+          "complete_when": [
+            {
+              "path": "state.json"
+            }
+          ]
+        },
+        {
+          "role": "result",
+          "complete_when": [
+            {
+              "path": "report.json"
+            },
+            {
+              "path": "report.md"
+            },
+            {
+              "path": "selected_model/recipe.json"
+            },
+            {
+              "path": "cis_test-predictions.jsonl"
+            },
+            {
+              "path": "trans_test-predictions.jsonl"
+            }
+          ]
+        }
+      ],
+      "recovery": {
+        "atomic_output_roles": [
+          "checkpoint"
+        ],
+        "progress": "@output:checkpoint/state.json",
+        "side_effects": "none"
+      },
+      "storage": {
+        "working_data_peak_bytes": 17179869184
+      }
+    }
+  ]
+}

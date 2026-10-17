@@ -1,5 +1,11 @@
 # Qwen2.5-VL Wildlife Object Detection Evaluation
 
+The reproducible improvement campaign is documented in
+[scripts/campaign/README.md](scripts/campaign/README.md). It includes 3B/7B LoRA,
+a dedicated detector, corrected box-evaluation subsets, independent negative
+training images, and a Fleet work order. Its locked environment uses original
+BF16 weights; install the `legacy-awq` extra for the original AWQ pipeline below.
+
 This repository evaluates `Qwen/Qwen2.5-VL-3B-Instruct-AWQ` as a prompted object detector on the existing Caltech Camera Traps COCO-style splits. It preserves raw model responses, converts valid boxes to COCO detections, and reports standard COCO AP/AR metrics.
 
 ## Setup
@@ -7,7 +13,7 @@ This repository evaluates `Qwen/Qwen2.5-VL-3B-Instruct-AWQ` as a prompted object
 Use a CUDA-compatible environment and install the matching PyTorch build first, then:
 
 ```bash
-pip install -e .
+pip install -e '.[legacy-awq]'
 ```
 
 Place the downloaded model at:
