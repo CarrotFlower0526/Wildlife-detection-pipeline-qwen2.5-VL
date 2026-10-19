@@ -146,7 +146,7 @@ for additional configuration details.
 ## Reproducibility and limitations
 
 - Scientific source commit:
-  [`c5e74a5a3b57b90cf7df922d222c96fa3fca9274`](https://github.com/CarrotFlower0526/Wildlife-detection-pipeline-qwen2.5-VL/commit/c5e74a5a3b57b90cf7df922d222c96fa3fca9274).
+  [`c5e74a5a3b57b90cf7df922d222c96fa3fca9274`](https://github.com/yuran986/Wildlife-detection-pipeline-qwen2.5-VL/commit/c5e74a5a3b57b90cf7df922d222c96fa3fca9274).
 - Workflow: `workflow-20261017T230843Z-5299c860`. Preparation and the GPU campaign
   each completed in their original attempt. Publishing this summary does not
   rerun training or evaluation.
