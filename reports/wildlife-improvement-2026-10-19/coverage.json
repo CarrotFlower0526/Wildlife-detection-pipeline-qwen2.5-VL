@@ -1,0 +1,22 @@
+{
+  "cis_test": {
+    "images": 15827,
+    "unique_ids": 15827,
+    "missing": 0,
+    "unexpected": 0,
+    "detections": 135993,
+    "invalid_records": 0,
+    "primary_evaluation_images": 13876,
+    "label_only_excluded": 1951
+  },
+  "trans_test": {
+    "images": 23275,
+    "unique_ids": 23275,
+    "missing": 0,
+    "unexpected": 0,
+    "detections": 253482,
+    "invalid_records": 0,
+    "primary_evaluation_images": 19811,
+    "label_only_excluded": 3464
+  }
+}

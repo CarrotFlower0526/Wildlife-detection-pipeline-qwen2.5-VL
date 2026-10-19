@@ -5,6 +5,10 @@ supervised YOLO11-L detector. It selects on validation, then evaluates one selec
 configuration on the two held-out test splits. It does not promise a globally
 optimal model or a predetermined accuracy improvement.
 
+The run is complete. See the [final results and model downloads](../../reports/wildlife-improvement-2026-10-19/README.md)
+for validation comparisons, the selected model's independent test performance,
+and artifact checksums.
+
 ## Data and evaluation
 
 - Original upstream: `79f7e06508cd234cf7b05933f3e3de438849a694`.

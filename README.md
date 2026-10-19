@@ -6,6 +6,11 @@ a dedicated detector, corrected box-evaluation subsets, independent negative
 training images, and a Fleet work order. Its locked environment uses original
 BF16 weights; install the `legacy-awq` extra for the original AWQ pipeline below.
 
+The completed campaign's [results and downloadable model](reports/wildlife-improvement-2026-10-19/README.md)
+compare all six candidates and report independent test metrics, per-class AP,
+false positives, image coverage, and the extended-data evaluation protocol.
+The validation-selected model is YOLO11-L with 1280-pixel TTA.
+
 This repository evaluates `Qwen/Qwen2.5-VL-3B-Instruct-AWQ` as a prompted object detector on the existing Caltech Camera Traps COCO-style splits. It preserves raw model responses, converts valid boxes to COCO detections, and reports standard COCO AP/AR metrics.
 
 ## Setup
